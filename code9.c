@@ -42,3 +42,27 @@ System.out.println("p="+p+"\nq="+q+"\nn="+n+"\nz="+z+"\nd="+d+"\ne="+e);
  do{
  ci[j] = in.nextLong();
  }while(ci[j++] != 0);
+System.out.println("Cipher Text" +"\t" + "Plain Text");
+ for(int i = 0; i < j-1; i++){
+ long pl = modexp(ci[i],d,n);
+ System.out.println(ci[i]+"\t\t" + (char) pl);
+ }
+ break;
+ case 3: System.out.println("Program Terminated");
+ System.exit(0);
+ 
+ }
+ }while(choice != 3);
+ }
+ static long modexp(long a,long x,long n){
+ long r=1;
+ while(x>0){
+ if(x%2==1){
+ r=(r*a)%n;
+ }
+ a=(a*a)%n;
+ x/=2;
+ }
+ return(r);
+ } 
+}
