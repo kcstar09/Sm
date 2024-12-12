@@ -41,3 +41,42 @@ printf("\n The data to be send is : ");
 for(i=0;i<(d+dl-1);i++)
 {
 if(i<d)
+datacrc[i]=data[i];
+else
+datacrc[i]=crc[i-d];
+printf("%d",datacrc[i]);
+}
+printf("\n Enter the receiver side data : ");
+for(i=0;i<(d+dl-1);i++)
+scanf("%d",&revdata[i]);
+for(j=0;j<=d;j++)
+{
+for(i=0;i<dl;i++)
+{
+remd[i]=revdata[i+j];
+if(remd[0]==1)
+revdata[i+j]=rem(revdata[i+j],div[i]);
+else
+revdata[i+j]=rem(revdata[i+j],0);
+}
+printf("\n The reminder is : ");
+k=0;
+for(i=0;i<dl-1;i++)
+{
+printf("%d",remd[i]);
+if(remd[i]==0)
+k++;
+}
+}
+if(k==dl-1)
+printf("\n There is no error found.");
+else
+printf("\n There is error found.");
+}
+int rem(int x, int y)
+{
+if(x==y)
+return 0;
+else
+return 1;
+}
