@@ -1,62 +1,50 @@
-#include<stdio.h>
-#define INF 999
-#define MAX 100
-int p[MAX],c[MAX][MAX],t[MAX][2];
-int find(int v)
-{
-while (p[v])
-v=p[v];
-return v;
-}
-void union1(int i, int j)
-{
-p[j]=i;
-}
-void kruskal (int n)
-{
-int i,j,k,u,v,min,res1,res2,sum=0;
-for(k=1;k<=n;k++)
-{
-min=INF;
-for(i=1;i<n-1;i++)
-{
-for(j=1;j<=n;j++)
-{
-if(i==j)continue;
-if(c[i][j]<min)
-{
-u=find(i);
-v=find(j);
-if(u!=v)
-{
-res1=i;
-res2=j;
-min=c[i][j];
-}
-}
-}
-}
-union1(res1,find(res2));
-t[k][1]=res1;
-t[k][2]=res2;
-sum=sum+min;
-}
-printf("\nCost of spanning tree is=%d",sum);
-printf("\nEdgesof spanning tree are:\n");
-for(i=1;i<n;i++)
-printf("%d -> %d\n",t[i][1],t[i][2]);
-}
-int main()
-{
-int i,j,n;
-printf("\nEnter the n value:");
-scanf("%d",&n);
-for(i=1;i<=n;i++)
-p[i]=0;
-printf("\nEnter the graph data:\n");
-for(i=1;i<=n;i++)
-for(j=1;j<=n;j++)
-scanf("%d",&c[i][j]);
-kruskal(n);
-return 0;
-}
+< html>
+<head>
+    <title>My First Web Page </title>
+</head>
+
+<body>
+    <!-- Moving text -->
+    <marquee>Welcome to vtucode</marquee>
+
+    <!-- Different heading tags -->
+    <h1>This is an H1 heading</h1>
+    <h2>This is an H2 heading</h2>
+    <h3>This is an H3 heading</h3>
+    <h4>This is an H4 heading</h4>
+    <h5>This is an H5 heading</h5>
+    <h6>This is an H6 heading</h6>
+
+    <!-- Paragraph -->
+    <p>This is a paragraph demonstrating the use of the paragraph tag in HTML.</p>
+
+    <!-- Horizontal line -->
+    <hr>
+
+    <!-- Line break -->
+    <p>This is a line of text before the break.<br>This is a line of text after the break.</p>
+
+    <!-- Block Quote -->
+    <blockquote>
+        This is a blockquote. It is used to display a quotation or excerpt from another source.
+    </blockquote>
+    <!-- Pre tag -->
+    <pre>
+This is preformatted text.
+It preserves spaces and line breaks.
+    </pre>
+    <!-- Different Logical Style tags -->
+    <p>This is <b>bold</b> text.</p>
+    <p>This is <i>italicized</i> text.</p>
+    <p>This is <u>underlined</u> text.</p>
+    <p>This is <sup>superscript</sup> text.</p>
+    <p>This is <sub>subscript</sub> text.</p>
+    <p>This is <em>emphasized</em> text.</p>
+    <p>This is <strong>strong</strong> text.</p>
+    <p>This is <mark>highlighted</mark> text.</p>
+    <p>This is <small>small</small> text.</p>
+    <p>This is <del>deleted</del> text.</p>
+    <p>This is <ins>inserted</ins> text.</p>
+    <p>This is <code>inline code</code> text.</p>
+</body>
+</html>
