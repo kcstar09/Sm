@@ -1,82 +1,151 @@
-#include<stdio.h>
-int rem(int,int);
-void main()
-{
-int i,j,k,d,dl;
-int data[10],div[5],newdata[15],crc[5],datacrc[15],revdata[15],remd[5];
-printf("\n Enter the data length= ");
-scanf("%d",&d);
-printf("\n Enter the divisor length= ");
-scanf("%d",&dl);
-printf("\n Enter the data : ");
-for(i=0;i<d;i++)
-scanf("%d",&data[i]);
-printf("\n Enter the divisor : ");
-for(i=0;i<dl;i++)
-scanf("%d",&div[i]);
-printf("\n The new data is : ");
-for(i=0;i<(d+dl-1);i++)
-{
-if(i<d)
-newdata[i]=data[i];
-else
-newdata[i]=0;
-printf("%d",newdata[i]);
-}
-for(j=0;j<=d;j++)
-{
-for(i=0;i<dl;i++)
-{
-crc[i]=newdata[i+j];
-if(crc[0]==1)
-newdata[i+j]=rem(newdata[i+j],div[i]);
-else
-newdata[i+j]=rem(newdata[i+j],0);
-}
-printf("\n The Crc is : ");
-for(i=0;i<dl-1;i++)
-printf("%d",crc[i]);
-}
-printf("\n The data to be send is : ");
-for(i=0;i<(d+dl-1);i++)
-{
-if(i<d)
-datacrc[i]=data[i];
-else
-datacrc[i]=crc[i-d];
-printf("%d",datacrc[i]);
-}
-printf("\n Enter the receiver side data : ");
-for(i=0;i<(d+dl-1);i++)
-scanf("%d",&revdata[i]);
-for(j=0;j<=d;j++)
-{
-for(i=0;i<dl;i++)
-{
-remd[i]=revdata[i+j];
-if(remd[0]==1)
-revdata[i+j]=rem(revdata[i+j],div[i]);
-else
-revdata[i+j]=rem(revdata[i+j],0);
-}
-printf("\n The reminder is : ");
-k=0;
-for(i=0;i<dl-1;i++)
-{
-printf("%d",remd[i]);
-if(remd[i]==0)
-k++;
-}
-}
-if(k==dl-1)
-printf("\n There is no error found.");
-else
-printf("\n There is error found.");
-}
-int rem(int x, int y)
-{
-if(x==y)
-return 0;
-else
-return 1;
-}
+<!DOCTYPE html>
+
+<head>
+    <title>Registration Form | vtucode</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select,
+        textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        input[type="reset"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .form-group textarea {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob">
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="gender-options">
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" name="country">
+                    <option value="usa">USA</option>
+                    <option value="canada">Canada</option>
+                    <option value="uk">UK</option>
+                    <option value="india">India</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" rows="4"></textarea>
+            </div>
+            <div class="button-group">
+                <input type="submit" value="Register">
+                <input type="reset" value="Reset">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
