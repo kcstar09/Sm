@@ -278,3 +278,199 @@ Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
 
 </html>
+
+<style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }  body {
+ padding: 20px;
+ font-family: 'Arial', sans-serif;
+ color: #000000;
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+ }  header {
+ margin-bottom: 30px;
+ border-radius: 10px;
+ align-items: center;
+ background-color: #7b38f7;
+ color: #fff;
+ padding: 20px;
+ display: flex;
+ justify-content: space-between;
+ text-align: center;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }  header a {
+ font-size: 25px;
+ font-weight: 600;
+ color: #fff;
+ text-decoration: none;
+ }  nav {
+ display: flex;
+ gap: 20px;
+ color: #fff;
+ text-align: center;
+ }  nav a {
+ font-size: 18px;
+ color: #fff;
+ text-decoration: none;
+ font-weight: bold;
+ }  nav a:hover {
+ text-decoration: underline;
+ }  .content {
+ display: flex;
+ justify-content: space-between;
+ flex: 1;
+ margin: auto;
+ padding: 20px 0;
+ gap: 20px;
+ position: relative;
+ }  .main-content {
+ cursor: pointer;
+ flex: 1;
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+ gap: 20px;
+ background-color: #fff;
+ border-radius: 12px;
+ padding: 25px;
+ box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+ }  aside {
+ border: 1px solid #ccc;
+ padding: 20px;
+ width: 350px;
+ border-radius: 8px;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ position: -webkit-sticky;
+ position: sticky;
+ top: 20px;
+ color: #333;
+ right: 0;
+ margin-left: 20px;
+ }  .related-news h3 {
+ text-align: center;
+ border-radius: 7px;
+ padding: 8px;
+ background: #000;
+ color: #ffffff;
+ font-size: 1.4em;
+ margin-bottom: 15px;
+ }  .related-news ul {
+ list-style: outside;
+ padding: 7px;
+ margin: 0;
+ }  .related-news li {
+ margin-bottom: 12px;
+ }  .related-news a {
+ text-decoration: none;
+ color: #7b38f7;
+ font-weight: bold;
+ transition: color 0.3s ease;
+ }  .related-news a:hover {
+ text-decoration: underline;
+ }  footer {
+ border-radius: 10px;
+ background-color: #7b38f7;
+ color: #fff;
+ padding: 20px;
+ font-weight: 500;
+ text-align: center;
+ margin-top: auto;
+ font-size: 18px;
+ }  article {
+ transition: all 0.3s ease;
+ background-color: #fff;
+ padding: 15px;
+ box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+ border-radius: 7px;
+ color: #000000;
+ }  figure {
+ background-color: #fafafa;
+ padding: 10px;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ text-align: center;
+ margin: 0;
+ }  figcaption {
+ font-size: 0.9em;
+ color: #666;
+ }  img {
+ max-width: 100%;
+ height: auto;
+ border-radius: 8px;
+ }  section {
+ padding: 20px;
+ width: 100%;
+ background-color: #fff;
+ border-radius: 8px;
+ box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+ }  section h2 {
+ color: #fff;
+ background: #000;
+ font-size: 24px;
+ border-radius: 10px;
+ text-align: center;
+ padding: 10px;
+ margin-bottom: 30px;
+ }  table {
+ width: 100%;
+ border-collapse: collapse;
+ }  caption {
+ font-size: 18px;
+ margin-bottom: 10px;
+ color: #555;
+ }  thead {
+ background-color: #007BFF;
+ color: #fff;
+ }  th,
+ td {
+ padding: 12px;
+ text-align: left;
+ }  th {
+ font-weight: bold;
+ }  tbody tr:nth-child(even) {
+ background-color: #f9f9f9;
+ }  tbody tr:hover {
+ background-color: #eaeaea;
+ }  @media (max-width: 600px) {  th,
+ td {
+ padding: 8px;
+ font-size: 14px;
+ }
+ }  caption {
+ background-color: #d9d9d9;
+ padding: 10px;
+ font-weight: bold;
+ border-bottom: 2px solid #ddd;
+ border-radius: 8px 8px 0 0;
+ font-size: 1.1em;
+ color: #333;
+ }  section {
+ margin-top: 40px;
+ margin-bottom: 50px;
+ }  article h2 {
+ color: #7b38f7;
+ font-size: 1.3em;
+ margin-bottom: 12px;
+ }  article p {
+ text-align: left;
+ line-height: 1.2;
+ margin-top: 10px;
+ }  article:hover {
+ background-color: #e7ddfb;
+ }  @media (max-width: 768px) {
+ .content {
+ flex-direction: column;
+ padding: 10px;
+ }  aside {
+ width: 100%;
+ margin-top: 20px;
+ position: static;
+ margin-left: 0;
+ }  .main-content {
+ grid-template-columns: 1fr;
+ }
+ }
+ </style>
