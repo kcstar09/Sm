@@ -1,68 +1,102 @@
-import java.util.*;
-import java.util.Scanner;
-class RSA{
- public static void main(String arg[]){
- Scanner in=new Scanner(System.in);
- long p,q,d,z,e,n,c;
- int choice;
- System.out.println("Enter two distinct prime numbers");
- p=in.nextLong();
- q=in.nextLong();
- n=p*q;
- z=(p-1)*(q-1);
- System.out.println("Enter a value for d which is less than and relatively 
-prime to "+z);
- d=in.nextLong();
- 
- for(e=1;e<z;++e)
- {
- if(((e*d)%z)==1)
- break;
- }
- 
-System.out.println("p="+p+"\nq="+q+"\nn="+n+"\nz="+z+"\nd="+d+"\ne="+e);
- do{
- System.out.println("1.Encription \n2.Decription\n3.Exit");
- System.out.println("choose an option");
- choice = in.nextInt();
- switch(choice){
- case 1:System.out.println("Enter a plain text");
- String s = in.next();
- 
- System.out.println("Plain Text" +"\t" + "Cipher Text");
- for(int i = 0; i < s.length(); i++){
- long pl = (int) s.charAt(i);
- c = modexp(pl,e,n);
- System.out.println(s.charAt(i)+"\t\t" + c);
- }
- break;
- case 2: System.out.println("Enter a cipher text (0 to stop input)");
- long [] ci = new long[50];
- int j =0;
- do{
- ci[j] = in.nextLong();
- }while(ci[j++] != 0);
-System.out.println("Cipher Text" +"\t" + "Plain Text");
- for(int i = 0; i < j-1; i++){
- long pl = modexp(ci[i],d,n);
- System.out.println(ci[i]+"\t\t" + (char) pl);
- }
- break;
- case 3: System.out.println("Program Terminated");
- System.exit(0);
- 
- }
- }while(choice != 3);
- }
- static long modexp(long a,long x,long n){
- long r=1;
- while(x>0){
- if(x%2==1){
- r=(r*a)%n;
- }
- a=(a*a)%n;
- x/=2;
- }
- return(r);
- } 
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Append, Animate, and Color Change Demo</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>jQuery Demonstration</h1>
+
+        <h2>a. Append Content</h2>
+        <p id="existingParagraph">This is an existing paragraph. </p>
+        <ul id="existingList">
+            <li>Existing item 1</li>
+            <li>Existing item 2</li>
+        </ul>
+        <button id="appendButton">Append Content</button>
+
+        <h2>b. Animate Element</h2>
+        <div id="animateBox" class="box"></div>
+        <button id="animateButton">Animate Box</button>
+
+        <h2>c. Change Color of Animated Div</h2>
+        <div id="colorBox" class="box"></div>
+        <button id="colorAnimateButton">Animate and Change Color</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // a. Append content
+            $("#appendButton").click(function() {
+                $("#existingParagraph").append("This content is appended.");
+                $("#existingList").append("<li>Appended item</li>");
+            });
+
+            // b. Animate element
+            $("#animateButton").click(function() {
+                $("#animateBox").animate({
+                    width: "200px",
+                    height: "200px",
+                    opacity: 0.5
+                }, 1000);
+            });
+
+            // c. Animate and change color
+            $("#colorAnimateButton").click(function() {
+                $("#colorBox").animate({
+                    width: "200px",
+                    height: "200px"
+                }, {
+                    duration: 1000,
+                    step: function(now, fx) {
+                        if (fx.prop === "width") {
+                            $(this).css("background-color", `rgb(${Math.round(now)}, 52, 219)`);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
