@@ -1,63 +1,28 @@
- App.js
-import React, { useState } from 'react';
-import './App.css';
-function App() {
-const [counter, setCounter] = useState(0);
-const [step, setStep] = useState(1);
-const minValue = 0;
-const handleIncrement = () => {
-setCounter(prevCounter => prevCounter + step);
-};
-const handleDecrement = () => {
-if (counter - step >= minValue) {
-setCounter(prevCounter => prevCounter - step);
-}
-};
-const handleReset = () => {
-setCounter(0);
-};
-const handleStepChange = (event) => {
-setStep(Number(event.target.value));
-};
-return (
-<div style={{ textAlign: 'center', marginTop: '50px' }}>
-<h1>Counter Application</h1>
-<div style={{ fontSize: '48px', margin: '20px' }}>
-<span>{counter}</span>
-</div>
-<div>
-<button onClick={handleIncrement}>Increase by {step}</button>
-<button onClick={handleDecrement}>Decrease by {step}</button>
-<button onClick={handleReset}>Reset</button>
-</div>
-<div style={{ marginTop: '20px' }}>
-<label>
-Set Increment/Decrement Step:
-<input
-type="number"
-value={step}
-onChange={handleStepChange}
-min="1"
-style={{ marginLeft: '10px' }}
-/>
-</label>
-</div>
-</div>
-);
-}
-export default App;
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 
-App.css
-.App {
-text-align: center;
-}
-button {
-margin: 10px;
-padding: 10px;
-font-size: 16px;
-cursor: pointer;
-}
-input {
-padding: 5px;
-font-size: 16px;
-}
+
+
+iris=datasets.load_iris()
+x=iris.data
+y=iris.target
+scaler=StandardScaler()
+x_scaled=scaler.fit_transform(x)
+pca=PCA(n_components=2)
+x_pca=pca.fit_transform(x_scaled)
+plt.figure(figsize=(8, 6))
+colors = ['purple', 'cyan', 'hotpink']
+labels=iris.target_names
+for i in range(len(colors)):
+    plt.scatter( x_pca[y == i, 0],x_pca[y == i, 1],
+    color=colors[i], label=labels[i] )
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('PCA on Iris Dataset')
+plt.legend()
+plt.grid()
+plt.show()
+print("Explained variance ratio:",pca.explained_variance_ratio_)
