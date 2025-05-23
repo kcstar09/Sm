@@ -1,60 +1,29 @@
-App.js,
-import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import './App.css';
-function App() {
-const title = "Welcome to My React App";
-const tagline = "Building great apps with React";
-const copyright = "© 2025 MyApp, All Rights Reserved";
-return (
-<div className="App">
-<Header title={title} />
-<Footer tagline={tagline} copyright={copyright} />
-</div>
-);
-}
-export default App;
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import fetch_california_housing
 
-Header.js
-import React from 'react';
-function Header(props) {
-return (
-<header>
-<h1>{props.title}</h1>
-</header>
-);
-}
-export default Header;
+from pandas.plotting import scatter_matrix
 
-Footer.js
-    import React from 'react';
-function Footer(props) {
-return (
-<footer>
-<p>{props.tagline}</p>
-<p>{props.copyright}</p>
-</footer>
-);
-}
-export default Footer;
+cal_housing= fetch_california_housing()
+df =pd.DataFrame(cal_housing.data,columns=cal_housing.feature_names)
 
-App.css
-    .App {
-text-align: center;
-font-family: Arial, sans-serif;
-}
-header {
-background-color: #282c34;
-padding: 20px;
-color: white;
-}
-footer {
-background-color: #282c34;
-padding: 10px;
-color: white;
-position: absolute;
-bottom: 0;
-width: 100%;
-text-align: center;
-}
+df['medHouseVal']=cal_housing.target
+
+corr_matrix = df.corr()
+
+print("correlation matrix:")
+print(corr_matrix)
+plt.figure(figsize=(8,6))
+plt.imshow(corr_matrix, cmap='coolwarm',interpolation='nearest', aspect='auto')
+plt.colorbar(label='correlation coefficient')
+
+
+plt.xticks(range(len(corr_matrix.columns)),corr_matrix.columns,rotation=90)
+plt.yticks(range(len(corr_matrix.columns)),corr_matrix.columns)
+plt.title("correlation matrix Heatmap")
+plt.tight_layout()
+plt.show()
+plt.figure(figuresize=(10,10))
+scatter_matrix(df,alpha=0.2,figsize=(12,12))
+plt.subtitle("pair plot of california housing feature")
+plt.show()
