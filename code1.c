@@ -25,3 +25,8 @@ for col in df.columns:
     plt.title(f"Box Plot of {col}")
     plt.ylabel(col)
     plt.show()
+
+plt.figure(figsize=(10, 10))
+scatter_matrix(df, alpha=0.2, figsize=(12, 12))
+plt.suptitle("Pair Plot of California Housing Features")
+plt.show()
