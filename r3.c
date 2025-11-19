@@ -1,64 +1,39 @@
-3)
- App.jsAdd commentMore actions
-import React, { useState } from 'react';
-import './App.css';
-function App() {
-const [counter, setCounter] = useState(0);
-const [step, setStep] = useState(1);
-const minValue = 0;
-const handleIncrement = () => {
-setCounter(prevCounter => prevCounter + step);
-};
-const handleDecrement = () => {
-if (counter - step >= minValue) {
-setCounter(prevCounter => prevCounter - step);
-}
-};
-const handleReset = () => {
-setCounter(0);
-};
-const handleStepChange = (event) => {
-setStep(Number(event.target.value));
-};
-return (
-<div style={{ textAlign: 'center', marginTop: '50px' }}>
-<h1>Counter Application</h1>
-<div style={{ fontSize: '48px', margin: '20px' }}>
-<span>{counter}</span>
-</div>
-<div>
-<button onClick={handleIncrement}>Increase by {step}</button>
-<button onClick={handleDecrement}>Decrease by {step}</button>
-<button onClick={handleReset}>Reset</button>
-</div>
-<div style={{ marginTop: '20px' }}>
-<label>
-Set Increment/Decrement Step:
-<input
-type="number"
-value={step}
-onChange={handleStepChange}
-min="1"
-style={{ marginLeft: '10px' }}
-/>
-</label>
-</div>
-</div>
-);
-}
-export default App;
+ #include <stdio.h>
+ #include <omp.h>
+ int fib(int n) {
+    int x, y;
+    if (n < 2)
+        return n;
+    #pragma omp task shared(x)
+    x = fib(n - 1);
+    #pragma omp task shared(y)
+    y = fib(n - 2);
+    #pragma omp taskwait
+    return x + y;
+ }
+ int main() {
+    int n;
+    printf("Enter number of Fibonacci terms: ");
+    scanf("%d", &n);
+    printf("Fibonacci Series:\n");
+    for (int i = 0; i < n; i++) {
+        int result;
+        #pragma omp parallel
+        {
+            #pragma omp single
+            {
+                result = fib(i);
+            }
+        }
+        printf("%d ", result);
+    }
 
-App.cssAdd commentMore actions
-.App {
-text-align: center;
-}
-button {
-margin: 10px;
-padding: 10px;
-font-size: 16px;
-cursor: pointer;
-}
-input {
-padding: 5px;
-font-size: 16px;
-}
+    printf("\n");
+    return 0;
+ }
+ OUTPUT:
+ secabiet@secabiet-Vostro-3470:~$ gcc -fopenmp prg3.c -o prg3
+ secabiet@secabiet-Vostro-3470:~$ export OMP_NUM_THREADS=4 && ./prg3
+ Enter number of Fibonacci terms: 6
+ Fibonacci Series:
+ 0 1 1 2 3 5
