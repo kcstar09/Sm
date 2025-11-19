@@ -30,8 +30,7 @@
         {
             #pragma omp section
             parallelMergeSort(arr, l, m);
-                                                                                              2025-26
-            #pragma omp section
+
             parallelMergeSort(arr, m + 1, r);
         }
         merge(arr, l, m, r);
