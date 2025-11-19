@@ -1,61 +1,34 @@
-2)
-App.js,
-import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import './App.css';
-function App() {
-const title = "Welcome to My React App";
-const tagline = "Building great apps with React";
-const copyright = "© 2025 MyApp, All Rights Reserved";
-return (
-<div className="App">
-<Header title={title} />
-<Footer tagline={tagline} copyright={copyright} />
-</div>
-);
-}
-export default App;
+ #include <stdio.h>
+ #include <omp.h>
+ int main() {
+    int n;
+    printf("Enter number of iterations: ");
+    scanf("%d", &n);
+    int thread_start[100], thread_end[100];
+    int i;
+    for (i = 0; i < 100; i++) {
+        thread_start[i] = -1;
+        thread_end[i] = -1;
+    }
+    #pragma omp parallel for schedule(static,2)
+    for (i = 0; i < n; i++) {
+        int tid = omp_get_thread_num();
+        if (thread_start[tid] == -1)
+            thread_start[tid] = i;
+        thread_end[tid] = i;
+    }
+    for (i = 0; i < 100; i++) {
+        if (thread_start[i] != -1) {
+            printf("Thread %d : Iterations %d -- %d\n", i, thread_start[i], thread_end[i]);
+        }
+    }
+    return 0;
+ }
 
-Header.jsAdd commentMore actions
-import React from 'react';
-function Header(props) {
-return (
-<header>
-<h1>{props.title}</h1>
-</header>
-);
-}
-export default Header;
-
-Footer.jsAdd commentMore actions
-    import React from 'react';
-function Footer(props) {
-return (
-<footer>
-<p>{props.tagline}</p>
-<p>{props.copyright}</p>
-</footer>
-);
-}
-export default Footer;
-
-App.cssAdd commentMore actions
-    .App {
-text-align: center;
-font-family: Arial, sans-serif;
-}
-header {
-background-color: #282c34;
-padding: 20px;
-color: white;
-}
-footer {
-background-color: #282c34;
-padding: 10px;
-color: white;
-position: absolute;
-bottom: 0;
-width: 100%;
-text-align: center;
-}
+ OUTPUT:
+ secabiet@secabiet-Vostro-3470:~$ gcc -fopenmp prg2.c -o prg2
+ secabiet@secabiet-Vostro-3470:~$ export OMP_NUM_THREADS=4 && ./prg2
+ Enter number of iterations: 6
+ Thread 0 : Iterations 0 -- 1
+ Thread 1 : Iterations 2 -- 3
+ Thread 2 : Iterations 4 -- 5
