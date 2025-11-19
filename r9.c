@@ -1,165 +1,46 @@
-9)
-Inside components, create Home.js , About.js, Contact.js and Navbar.js files.Add commentMore actions
-  Home.js
-  import React from 'react';
-const Home = () => {
-return (
-<div>
-<h2>Home Page</h2>
-
-<p>Welcome to the Home Page!</p>
-</div>
-);
-};
-export default Home
-
-About.js:
-import React from 'react';
-const About = () => {
-return (
-<div>
-<h2>About Page</h2>
-<p>Learn more about us on the About Page!</p>
-</div>
-);
-};
-export default About;
-
-Contact.js:
-import React from 'react';
-const Contact = () => {
-return (
-<div>
-<h2>Contact Page</h2>
-<p>Get in touch with us through the Contact Page!</p>
-</div>
-);
-};
-export default Contact;
-
-Navbar.js:
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-const Navbar = () => {
-return (
-<nav>
-<ul>
-<li>
-<NavLink
-to="/"
-
-className={({ isActive }) => (isActive ? 'active' : '')}
->
-Home
-</NavLink>
-</li>
-<li>
-<NavLink
-to="/about"
-className={({ isActive }) => (isActive ? 'active' : '')}
->
-About
-</NavLink>
-</li>
-<li>
-<NavLink
-to="/contact"
-className={({ isActive }) => (isActive ? 'active' : '')}
->
-Contact
-</NavLink>
-</li>
-</ul>
-</nav>
-);
-};
-export default Navbar;
-
-App.js
-  mport React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import './App.css'
-const App = () => {
-return (
-<Router>
-<div>
-<Navbar />
-<div style={{ padding: '20px' }}>
-<Routes>
-<Route path="/" element={<Home />} />
-<Route path="/about" element={<About />} />
-<Route path="/contact" element={<Contact />} />
-
-</Routes>
-</div>
-</div>
-</Router>
-);
-};
-export default App;
-
-App.css
-  body {
-font-family: Arial, sans-serif;
-background-color: #f4f4f4;
-margin: 0;
-padding: 0;
-}
-div {
-margin: 0 auto;
-max-width: 960px;
-padding: 20px;
-}
-h2 {
-color: #333;
-padding-bottom: 20px;
-}
-nav {
-background-color: #333;
-padding: 10px;
-border-radius: 5px;
-margin-bottom: 20px;
-}
-ul {
-list-style: none;
-display: flex;
-gap: 15px;
-justify-content: center;
-margin: 0;
-padding: 0;
-}
-li {
-display: inline;
-}
-
-a {
-text-decoration: none;
-color: white;
-padding: 8px 16px;
-border-radius: 4px;
-}
-a:hover {
-background-color: #444;
-}
-a.active {
-background-color: #1e90ff;
-color: white;
-font-weight: bold;
-}
-p {
-color: #555;
-font-size: 1.1rem;
-line-height: 1.6;
-}
-
-(index.js
-  import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-const rootElement = document.getElementById('root');
-const root = ReactDOM.createRoot(rootElement);
-root.render(<App />);
+ #include <mpi.h>
+ #include <stdio.h>
+ int main(int argc, char *argv[]) {
+    int rank, size;
+    int value, sum, prod, max, min;
+    int all_sum, all_prod, all_max, all_min;
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    value = rank + 1;
+    MPI_Reduce(&value, &sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&value, &prod, 1, MPI_INT, MPI_PROD, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&value, &max, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&value, &min, 1, MPI_INT, MPI_MIN, 0, MPI_COMM_WORLD);
+    MPI_Allreduce(&value, &all_sum, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Allreduce(&value, &all_prod, 1, MPI_INT, MPI_PROD, MPI_COMM_WORLD);
+    MPI_Allreduce(&value, &all_max, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
+    MPI_Allreduce(&value, &all_min, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
+    if (rank == 0) {
+        printf("--- Results using MPI_Reduce (only root prints) ---\n");
+        printf("Sum = %d\n", sum);
+        printf("Product = %d\n", prod);
+        printf("Max = %d\n", max);
+        printf("Min = %d\n", min);
+    }
+    printf("Process %d has value %d\n", rank, value);
+    printf("Process %d sees (MPI_Allreduce): Sum=%d, Prod=%d, Max=%d, Min=%d\n",
+           rank, all_sum, all_prod, all_max, all_min);
+    MPI_Finalize();
+    return 0;
+ }
+OUTPUT :
+ secabiet@secabiet-Vostro-3470:~$ mpicc prg9.c -o prg9
+ secabiet@secabiet-Vostro-3470:~$ mpirun -np 4 ./prg9
+ Process 1 has value 2
+ Process 1 sees (MPI_Allreduce): Sum=10, Prod=24, Max=4, Min=1
+ Process 3 has value 4
+ Process 3 sees (MPI_Allreduce): Sum=10, Prod=24, Max=4, Min=1
+ Process 2 has value 3
+ Process 2 sees (MPI_Allreduce): Sum=10, Prod=24, Max=4, Min=1--- Results using MPI_Reduce (only root prints) --
+Sum = 10
+ Product = 24
+ Max = 4
+ Min = 1
+ Process 0 has value 1
+ Process 0 sees (MPI_Allreduce): Sum=10, Prod=24, Max=4, Min=1
